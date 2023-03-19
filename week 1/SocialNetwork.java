@@ -6,14 +6,17 @@ public class SocialNetwork {
   int[] size;
   int[] person;
   int n;
+  int[] max;
   public SocialNetwork(int n) {
     this.n = n;
     size = new int[n];
     person = new int[n];
     full = false;
+    max = new int[n];
     for (int i = 0; i < n; i++) {
       person[i] = i;
       size[i] = 1;
+      max[i] = i;
     }
   }
 
@@ -32,31 +35,46 @@ public class SocialNetwork {
     if (!isConnected(p1, p2)) {
       int r1 = root(p1);
       int r2 = root(p2);
-      if(size[r1] < size[r2]) {
+      
+      if (size[r1] < size[r2]) {
         person[r1] = r2;
+        setMax(r2, r1);
         size[r2] += size[r1];
-        if(size[r2] == n) this.full = true;
+        if (size[r2] == n)
+          this.full = true;
       } else {
         person[r2] = r1;
+        setMax(r1, r2);
         size[r1] += size[r2];
-        if(size[r1] == n) this.full = true;
+        if (size[r1] == n)
+          this.full = true;
       }
     }
   }
 
-  public boolean isFull() {
-    return this.full;
+  private void setMax(int r, int p) {
+    if(max[p] > max[r]) max[r] = max[p];
   }
+
+  public int find(int i) { return max[root(i)]; }
+
+  public boolean isFull() { return this.full; }
 
   public static void main(String[] args) {
     int people = Integer.parseInt(args[0]);
     SocialNetwork network = new SocialNetwork(people);
-    while(!StdIn.isEmpty()) {
+    while (!StdIn.isEmpty()) {
       int p1 = StdIn.readInt();
       int p2 = StdIn.readInt();
       network.connect(p1, p2);
       StdOut.println(network.isFull());
+      StdOut.println(network.find(1));
     }
     StdOut.println(network.isFull());
+
+    // while(!StdIn.isEmpty()) {
+    //   int p1 = StdIn.readInt();
+    //   StdOut.println(network.find(p1));
+    // }
   }
 }
