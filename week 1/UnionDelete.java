@@ -48,7 +48,7 @@ public class UnionDelete {
     if (v == s.length - 1)
       return v;
     union(v, v + 1);
-    return as[v + 1];
+    return as[root(v + 1)];
   }
 
   public static void main(String[] args) {
