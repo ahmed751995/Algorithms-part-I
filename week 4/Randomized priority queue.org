@@ -1,0 +1,9 @@
+#+OPTIONS: \n:t
+#+TITLE: Randomized priority queue.
+
+* sample()
+  to take a sample randomly pick a number in range 0 => N 
+
+* delRandom()
+  replace the selected element with the last element, reduce N by 1 
+  and then swim that index and sink the same index again.
