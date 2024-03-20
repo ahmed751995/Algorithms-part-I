@@ -34,13 +34,10 @@ public class UnionDelete {
     if (sz[r1] < sz[r2]) {
       s[r1] = r2;
       sz[r2] += sz[r1];
-      if (as[r2] < as[r1])
-        as[r2] = as[r1];
     } else {
       s[r2] = r1;
       sz[r1] += sz[r2];
-      if (as[r1] < as[r2])
-        as[r1] = as[r2];
+      as[r1] = as[r2];
     }
   }
 
